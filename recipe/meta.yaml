@@ -6,29 +6,31 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/tex2py-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/tex2py-{{ version }}.tar.gz
   sha256: 19b563de8893630cfead7bb207118bee2a01cd2e00d7920f6d8c07f025de50ba
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 2
+  number: 3
 
 requirements:
   host:
     - pip
     - pytest
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - coverage >=3.7.1
     - coveralls >=1.1
     - pptree >=2.0
     - pytest
     - pytest-cov ==2.5.1
-    - python >=3.6
+    - python >={{ python_min }}
     - texsoup ==0.1.4
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - tex2py
 
